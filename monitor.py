@@ -195,8 +195,8 @@ def main():
     data_changed = False
     
     if previous_data:
-        if (abs(current_data['PM25'] - previous_data.get('PM25', 0)) > 0.01 or 
-            abs(current_data['PM10'] - previous_data.get('PM10', 0)) > 0.01):
+        if (abs(current_data['PM25'] - previous_data.get('PM25', 0)) > 5.0 or 
+            abs(current_data['PM10'] - previous_data.get('PM10', 0)) > 5.0):
             data_changed = True
             print("🔄 Обнаружены изменения в данных")
         else:
