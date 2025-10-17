@@ -53,8 +53,8 @@ git push -u origin main
 
 Или:
 
-1. Напишите боту сообщение по токену `7378826222:AAFKyODYXtKrvue7wA4gF2e1HQ9XEC9TrDk`
-2. Откройте в браузере: `https://api.telegram.org/bot7378826222:AAFKyODYXtKrvue7wA4gF2e1HQ9XEC9TrDk/getUpdates`
+1. Напишите боту сообщение
+2. Откройте в браузере: `https://api.telegram.org/botВАШ_ТОКЕН/getUpdates`
 3. Найдите поле `"chat":{"id":123456789...}` - это ваш Chat ID
 
 ### 3. Настройка GitHub Secrets
@@ -65,7 +65,7 @@ git push -u origin main
 
    **TELEGRAM_BOT_TOKEN**
    ```
-   7378826222:AAFKyODYXtKrvue7wA4gF2e1HQ9XEC9TrDk
+   ваш_токен_бота_здесь
    ```
 
    **TELEGRAM_CHAT_ID**
@@ -110,7 +110,7 @@ GitHub Actions автоматически запустится каждый ча
 pip install -r requirements.txt
 
 # Установите переменные окружения
-export TELEGRAM_BOT_TOKEN="7378826222:AAFKyODYXtKrvue7wA4gF2e1HQ9XEC9TrDk"
+export TELEGRAM_BOT_TOKEN="ваш_токен_бота"
 export TELEGRAM_CHAT_ID="ваш_chat_id"
 
 # Запустите скрипт

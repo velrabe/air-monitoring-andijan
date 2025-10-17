@@ -15,7 +15,7 @@ import sys
 MONITORING_URL = "https://monitoring.meteo.uz/ru/map/view/724"
 
 # Telegram настройки
-TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN', '7378826222:AAFKyODYXtKrvue7wA4gF2e1HQ9XEC9TrDk')
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '')
 
 # Файл для хранения предыдущих значений
@@ -92,6 +92,10 @@ def save_data(data):
 
 def send_telegram_message(message):
     """Отправляет сообщение в Telegram"""
+    if not TELEGRAM_BOT_TOKEN:
+        print("❌ TELEGRAM_BOT_TOKEN не настроен!")
+        return False
+    
     if not TELEGRAM_CHAT_ID:
         print("⚠️ TELEGRAM_CHAT_ID не настроен. Сообщение не отправлено.")
         print(f"Сообщение: {message}")
