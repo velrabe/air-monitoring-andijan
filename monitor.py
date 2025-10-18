@@ -138,41 +138,34 @@ def format_message(current_data, previous_data=None):
     """Форматирует сообщение для отправки"""
     pm25 = current_data['PM25']
     pm10 = current_data['PM10']
-    timestamp = current_data['timestamp']
     
     quality_level, quality_desc = get_air_quality_level(pm25, pm10)
     
-    message = f"<b>🌍 Мониторинг качества воздуха - Андижан</b>\n\n"
-    message += f"<b>Обновлено:</b> {timestamp}\n\n"
-    message += f"<b>{quality_level}</b>\n{quality_desc}\n\n"
-    message += f"<b>Показатели:</b>\n"
+    # Получаем эмодзи изменений
+    pm25_emoji = get_change_emoji(pm25, previous_data.get('PM25') if previous_data else None)
+    pm10_emoji = get_change_emoji(pm10, previous_data.get('PM10') if previous_data else None)
     
-    if previous_data:
-        # Показываем изменения
-        pm25_diff = pm25 - previous_data.get('PM25', pm25)
-        pm10_diff = pm10 - previous_data.get('PM10', pm10)
-        
-        pm25_arrow = "📈" if pm25_diff > 0 else "📉" if pm25_diff < 0 else "➡️"
-        pm10_arrow = "📈" if pm10_diff > 0 else "📉" if pm10_diff < 0 else "➡️"
-        
-        message += f"• PM 2.5: <b>{pm25:.3f} µg/m³</b> {pm25_arrow} "
-        if pm25_diff != 0:
-            message += f"({pm25_diff:+.3f})\n"
-        else:
-            message += "\n"
-            
-        message += f"• PM 10: <b>{pm10:.3f} µg/m³</b> {pm10_arrow} "
-        if pm10_diff != 0:
-            message += f"({pm10_diff:+.3f})\n"
-        else:
-            message += "\n"
-    else:
-        message += f"• PM 2.5: <b>{pm25:.3f} µg/m³</b>\n"
-        message += f"• PM 10: <b>{pm10:.3f} µg/m³</b>\n"
+    # Форматируем время
+    timestamp_formatted = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
     
-    message += f"\n<a href='{MONITORING_URL}'>Подробнее на сайте</a>"
+    message = f"PM 2.5: {pm25:.3f}{pm25_emoji} | PM 10: {pm10:.3f}{pm10_emoji}\n\n"
+    message += f"{quality_level} {quality_desc}\n"
+    message += f"Обновлено: {timestamp_formatted}"
     
     return message
+
+
+def get_change_emoji(current_value, previous_value):
+    """Возвращает эмодзи изменения (вверх, вниз, без изменений)"""
+    if previous_value is None:
+        return ""
+    
+    if current_value > previous_value:
+        return " 🔼"
+    elif current_value < previous_value:
+        return " 🔽"
+    else:
+        return " ⏺️"
 
 
 def main():
