@@ -1,10 +1,14 @@
 name: Air Quality Monitor
 
-on:
-  schedule:
-    # Запускается каждый час на 5-й минуте (00:05, 01:05, 02:05 и т.д.)
-    - cron: '5 * * * *'
-  workflow_dispatch:  # Позволяет запустить вручную
+# DISABLED - Using Cloudflare Workers instead
+# on:
+#   schedule:
+#     # Запускается каждый час на 5-й минуте (00:05, 01:05, 02:05 и т.д.)
+#     - cron: '5 * * * *'
+#   workflow_dispatch:  # Позволяет запустить вручную
+
+# Disabled workflow - no triggers
+on: {}
 
 jobs:
   monitor:

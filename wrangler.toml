@@ -5,11 +5,11 @@ compatibility_date = "2025-10-17"
 # KV Namespace для хранения предыдущих данных
 [[kv_namespaces]]
 binding = "AIR_DATA"
-id = "your-kv-namespace-id"  # Замените на реальный ID после создания
+id = "01ebddaaa0ad411c98eeb1556a9e4caf"
 
-# Cron trigger - каждый час на 5-й минуте
+# Cron trigger - каждую минуту для тестирования
 [triggers]
-crons = ["5 * * * *"]
+crons = ["* * * * *"]
 
 # Переменные окружения (будут настроены через Dashboard)
 [vars]

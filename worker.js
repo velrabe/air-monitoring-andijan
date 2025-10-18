@@ -17,10 +17,12 @@ async function fetchAirQualityData() {
     const html = await response.text();
     
     // Парсим данные PM 2.5 и PM 10 из HTML
-    const pm25Match = html.match(/PM 2\.5:\s*([\d.]+)/);
-    const pm10Match = html.match(/PM 10:\s*([\d.]+)/);
+    // Ищем значения после PM 2.5: и PM 10:
+    const pm25Match = html.match(/PM 2\.5:.*?(\d+\.?\d*)/);
+    const pm10Match = html.match(/PM 10:.*?(\d+\.?\d*)/);
     
     if (!pm25Match || !pm10Match) {
+      console.log('HTML content preview:', html.substring(0, 1000));
       throw new Error('Не удалось найти данные PM 2.5 или PM 10');
     }
     
